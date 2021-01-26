@@ -3,7 +3,7 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-mod paraswap;
+pub mod paraswap;
 mod types;
 
 #[cfg(test)]

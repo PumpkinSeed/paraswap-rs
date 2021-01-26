@@ -1,8 +1,4 @@
 use crate::types;
-use core::fmt;
-use serde::de::Unexpected;
-use serde::{Deserialize, Deserializer};
-use std::borrow::Borrow;
 use ureq;
 
 const PRODUCTION_BASE_URL: &str = "https://api.paraswap.io";
@@ -56,18 +52,18 @@ impl Descriptor for Handler {
 }
 
 impl Handler {
-    fn new() -> Handler {
+    pub fn new() -> Handler {
         Handler {
             mode: Mode::MockServer,
             network: 1,
         }
     }
 
-    fn set_mode(&mut self, mode: Mode) {
+    pub fn set_mode(&mut self, mode: Mode) {
         self.mode = mode;
     }
 
-    fn set_network(&mut self, network: u8) {
+    pub fn set_network(&mut self, network: u8) {
         self.network = network;
     }
 
