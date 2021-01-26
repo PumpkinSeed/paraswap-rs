@@ -1,9 +1,8 @@
-pub trait Paraswap {
-    fn list_tokens();
-    fn get_rate();
-    fn swap();
-}
+extern crate serde;
+#[macro_use] extern crate serde_derive;
+extern crate serde_json;
 
+mod paraswap;
 
 #[cfg(test)]
 mod tests {
