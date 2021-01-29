@@ -8,7 +8,7 @@ const DEBUGGING_PROXY_BASE_URL: &str =
 
 pub trait Descriptor {
     fn list_tokens(self) -> Result<types::Tokens, ureq::Error>;
-    fn get_rate(self, req: types::RateRequest);
+    fn get_rate(self, req: types::RateRequest) -> Result<types::Rates, ureq::Error>;
     fn swap(self);
 }
 
@@ -33,17 +33,15 @@ impl Descriptor for Handler {
         Ok(tokens)
     }
 
-    fn get_rate(self, req: types::RateRequest) {
+    fn get_rate(self, req: types::RateRequest) -> Result<types::Rates, ureq::Error> {
         let endpoint: &str = "/v2/prices";
-        let res: String = ureq::get(&self.url_builder(endpoint)[..])
+        let rates: types::Rates = ureq::get(&self.url_builder(endpoint)[..])
             .query("from", &req.src_token[..])
             .query("to", &req.dest_token[..])
             .query("amount", &req.amount[..])
-            .call()
-            .unwrap()
-            .into_string()
-            .unwrap();
-        println!("{}", res);
+            .call()?
+            .into_json()?;
+        Ok(rates)
     }
 
     fn swap(self) {

@@ -32,6 +32,10 @@ pub struct RateRequest {
                             // RateOptions
 }
 
+/*
+    Rates types
+*/
+
 #[derive(Deserialize, Debug)]
 pub struct Rates {
     #[serde(rename(deserialize = "priceRoute"))]
